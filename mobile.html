@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 23.4375rem;
+            height: 350px;
+            background-color: #666;
+        }
+    </style>
+    <script type="text/javascript">
+        // 设计图是以iphone6为基础的 即为750  
+        // (function () {
+        //     var dpr = window.devicePixelRatio
+        //     var html = window.document.documentElement
+        //     var dom = document.createElement('meta')
+        //     dom.setAttribute('name', 'viewport')
+        //     dom.setAttribute('content', `width=device-width,initial-scale=${1 / dpr},maximum-scale=${1 / dpr},minimum-scale=${1 / dpr}`)
+        //     html.firstElementChild.appendChild(dom)
+        //     var layoutwidth = window.document.documentElement.clientWidth
+        //     html.style.fontSize = 16 * (layoutwidth / 375) + 'px'
+        //     console.log(layoutwidth, document.body)
+        // })()
+        // //  window.devicePixeRatio   -webkit-pixe-ratio  利用css进行适配
+        // // screen.width 为理想视口宽度
+        // //  document.documentElement.clientWidth 为布局视口
+        // // window.innerWidth 为可视视口 
+        // console.log(document.documentElement.clientWidth, window.innerWidth, screen.width)
+    </script>
+    <script>
+        //1. 安卓所有处理dpr=1  这里默认设计图为iphone6 750  base-size: 32px 即1rem = 32px 
+        (function (win, doc) {
+            var dpr = 0,
+                docHtm = win.document.documentElement,
+                metahtm = doc.querySelector('meta[name="viewport"]'),
+                scale = 0;
+            var resizeEvt = Reflect.has(win, 'orientationchange') ? 'orientationchange' : 'resize'
+            var pattn = /iphone/gi
+            var iphone = pattn.test(win.navigator.appVersion)
+            if (iphone) {
+                dpr = win.devicePixelRatio
+            } else {
+                dpr = 1
+            }
+            scale = 1 / dpr
+            if (!metahtm) {
+                var meta = doc.createElement('meta')
+                meta.setAttribute('name', 'viewport')
+                meta.setAttribute('content', `width=device-width,initial-scale=${scale},minimum-scale=${scale},maximum-scale${scale}`)
+                doc.documentElement.firstElementChild.appendChild(meta)
+            }
+            else {
+                metahtm.setAttribute('content', `width=device-width,initial-scale=${scale},minimum-scale=${scale},maximum-scale${scale}`)
+            }
+            function resizeRem() {
+                var width = docHtm.clientWidth || win.innerWidth || doc.body.clientWidth
+                var htmfont = docHtm.style.fontSize = 16 * (width / 375) + 'px'
+            }
+            resizeRem()
+            win.addEventListener(resizeEvt, resizeRem, false)
+            doc.addEventListener('DomContentLoad', resizeRem, false)
+        })(window, document)
+    </script>
+    <script>
+    // 2. 移动端适配方案
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        实验移动端的大小
+    </div>
+</body>
+
+</html>
