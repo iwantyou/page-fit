@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <meta name="viewport"
-        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
+    <meta name="viewport" content="width=640,user-scalable=no" />
     <title>Document</title>
     <style>
         * {
@@ -14,7 +13,7 @@
         }
 
         .wrap {
-            width: 23.4375rem;
+            width: 640px;
             height: 350px;
             background-color: #666;
         }
@@ -33,12 +32,13 @@
         //     console.log(layoutwidth, document.body)
         // })()
         // //  window.devicePixeRatio   -webkit-pixe-ratio  利用css进行适配
-        // // screen.width 为理想视口宽度
+        // //  screen.width 为理想视口宽度
         // //  document.documentElement.clientWidth 为布局视口
-        // // window.innerWidth 为可视视口 
-        // console.log(document.documentElement.clientWidth, window.innerWidth, screen.width)
+        // //  window.innerWidth 为可视视口 
+        console.log(document.documentElement.clientWidth, window.innerWidth, screen.width)
+
     </script>
-    <script>
+    <!-- <script>
         //1. 安卓所有处理dpr=1  这里默认设计图为iphone6 750  base-size: 32px 即1rem = 32px 
         (function (win, doc) {
             var dpr = 0,
@@ -73,8 +73,17 @@
         })(window, document)
     </script>
     <script>
-    // 2. 移动端适配方案
-    </script>
+            // 2. 移动端适配方案 rem布局
+            // 假设ui且的设计图为iphone为标准  750
+
+            // 利用插件px2rem() 进行转化 分成100份 即1rem = 100px
+            // 必要条件 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+            (function () {
+                var hft = window.document.documentElement
+                var width = docHtm.clientWidth || win.innerWidth || doc.body.clientWidth
+                htf.style.fontSize = 100 * width / 750 + 'px'
+            })()
+    </script> -->
 </head>
 
 <body>
